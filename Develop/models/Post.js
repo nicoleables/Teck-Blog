@@ -1,27 +1,39 @@
-const { Model, DataType } = require("sequelize");
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
 class Post extends Model {}
 
 Post.init(
   {
-    title: {
-      type: DataType.STRING,
+    id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
     },
-    text: {
-      type: DataType.STRING,
-      allowNull: false,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     user_id: {
+      type: DataTypes.INTEGER,
       references: {
-        key: "id",
-        mode: "user",
-      },
-    },
+        model: 'user',
+        key: 'id'
+      }
+    }
   },
   {
-    freezeTableName: false,
+    sequelize,
+    timestamps: true,
+    freezeTableName: true,
     underscored: true,
-    modelName: "post",
+    modelName: 'post'
   }
 );
+
+module.exports = Post;

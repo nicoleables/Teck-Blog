@@ -1,5 +1,19 @@
-{{#each posts as |post|}}
-{{> post}}
-{{/each}}
+<main>
+  {{#each posts}}
+    <article>
+      <h2>{{this.title}}</h2>
+      <p>by {{this.user.username}} on {{this.createdAt}}</p>
+      <p>{{this.content}}</p>
+    </article>
+  {{/each}}
+
+  {{#if logged_in}}
+    <a href="/dashboard">Go to Dashboard</a>
+    <a href="#" id="logout">Logout</a>
+    <script src="/js/logout.js"></script>
+  {{else}}
+    <a href="/login">Login</a>
+  {{/if}}
+</main>
 
 
